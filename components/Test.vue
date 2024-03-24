@@ -18,7 +18,8 @@
       <v-app-bar title="Application bar"></v-app-bar>
   
       <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
-        Main Content
+        <MapDraw/>
+        <router-view>Route</router-view> <!-- This is where the routed content will be displayed -->
       </v-main>
     </v-layout>
 </template>
@@ -31,22 +32,22 @@
         {
           title: "Dashboard",
           icon: "mdi-view-dashboard",
-          route: "/Dashboard"
+          route: "/dashboard"
         },
         {
           title: "Overview",
           icon: "mdi-eye",
-          route: "/Overview"
+          route: "/overview"
         },
         {
           title: "City",
           icon: 'mdi-city',
-          route: "/City"
+          route: "/city"
         },
         {
           title: "Settings",
           icon: "mdi-cog",
-          route: "/Settings"
+          route: "/settings"
         }
       ], 
       currentRoute: null // Initialize currentRoute data property
@@ -55,7 +56,7 @@
   methods: {
     navigateTo(route) {
       this.$router.push(route); // Use Vue Router to navigate to the specified route
-      this.currentRoute = route; // Update currentRoute to highlight the clicked item
+      //this.currentRoute = route; // Update currentRoute to highlight the clicked item
     }
   }
   };
