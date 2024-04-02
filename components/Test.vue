@@ -2,12 +2,21 @@
   <v-layout class="page-container">
     <!-- Navigation Drawer -->
     <v-navigation-drawer>
-      <img src="../assets/images/SCAI-Logo.png" alt="Logo" class="logo"/>
+      <img src="../assets/images/SCAI-Logo.png" alt="Logo" class="logo" />
 
       <!-- Menu Items -->
       <v-list>
-        <v-list-item v-for="(item, index) in menuItems" :key="index" @click="navigateTo(item.route)" :class="{ 'hover-item': true, 'active-item': currentRoute === item.route }">
-          <v-icon>{{ item.icon }}</v-icon> <!-- Display the icon -->
+        <v-list-item
+          v-for="(item, index) in menuItems"
+          :key="index"
+          @click="navMultiLang(item.route)"
+          :class="{
+            'hover-item': true,
+            'active-item': currentRoute === item.route
+          }"
+        >
+          <v-icon>{{ item.icon }}</v-icon>
+          <!-- Display the icon -->
           {{ item.title }}
         </v-list-item>
       </v-list>
@@ -19,7 +28,7 @@
     <!-- Main Content -->
     <v-main class="main-content">
       <!-- Your main content here, such as MapDraw -->
-      <MapDraw/>
+      <MapDraw />
     </v-main>
   </v-layout>
 </template>
@@ -29,10 +38,9 @@ export default {
   data() {
     return {
       menuItems: [
-        
         { title: "Overview", icon: "mdi-eye", route: "/overview" },
         { title: "Settings", icon: "mdi-cog", route: "/settings" },
-        { title: "Login", icon: "mdi-login", route: "/Login"}
+        { title: "Login", icon: "mdi-login", route: "/Login" }
       ],
       currentRoute: null // Initialize currentRoute data property
     };
@@ -40,6 +48,12 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route); // Use Vue Router to navigate to the specified route
+    },
+    navMultiLang(route) {
+      console.log("hello wrold");
+      const localeRoute = useLocaleRoute();
+      var routeNav = localeRoute(route);
+      navigateTo(routeNav);
     }
   }
 };
