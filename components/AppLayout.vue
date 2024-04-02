@@ -1,3 +1,4 @@
+<!-- AppLayout.vue -->
 <template>
   <v-layout class="page-container">
     <!-- Navigation Drawer -->
@@ -6,9 +7,9 @@
 
       <!-- Menu Items -->
       <v-list>
-        <v-list-item v-for="(item, index) in menuItems" :key="index" @click="navigateTo(item.route)" :class="{ 'hover-item': true, 'active-item': currentRoute === item.route }">
+        <v-list-item v-for="(item, index) in menuItems" :key="index" @click=" navMultiLang(item.route)" :class="{ 'hover-item': true, 'active-item': currentRoute === item.route }">
           <v-icon>{{ item.icon }}</v-icon> <!-- Display the icon -->
-          {{ item.title }}
+          {{ item.title }} 
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -18,8 +19,8 @@
 
     <!-- Main Content -->
     <v-main class="main-content">
-      <!-- Your main content here, such as MapDraw -->
-      <MapDraw/>
+      <!-- Slot for dynamic content -->
+      <slot></slot>
     </v-main>
   </v-layout>
 </template>
@@ -40,6 +41,15 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route); // Use Vue Router to navigate to the specified route
+    },
+
+    navMultiLang(route) {
+      const localeRoute = useLocaleRoute();
+      var routeNav = localeRoute(route);
+      console.log(route);
+      console.log(routeNav);
+      navigateTo(routeNav);
+      console.log("kjkj");
     }
   }
 };
