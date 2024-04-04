@@ -1,5 +1,8 @@
 <template>
-    <div>
-        <Test/>
-     </div>
-</template>
+    <Login />
+  </template>
+  <script setup>
+  definePageMeta({
+    layout: "auth"
+  });
+  </script>

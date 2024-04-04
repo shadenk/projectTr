@@ -1,9 +1,9 @@
-const authFlowRoutes = ["/login", "/settings", "/overview", "/ar/login"];
+const authFlowRoutes = ["/", "/settings", "/overview", "/ar"];
 
 export default defineNuxtRouteMiddleware((to, from) => {
   const isLogin = true;
   if (!isLogin && !authFlowRoutes.includes(to.path.toLowerCase())) {
-    return navigateTo("/login");
+    return navigateTo("/");
   }
   // console.log("to");
   // console.log(to.fullPath);

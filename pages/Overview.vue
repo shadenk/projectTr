@@ -1,5 +1,5 @@
 <template>
-    <div>
-        <Test/>
-     </div>
+
+        <MapDraw/>
+     
 </template>
