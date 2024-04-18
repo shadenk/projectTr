@@ -1,0 +1,89 @@
+/* Import Normalize.css */
+@import 'normalize.css';
+
+/* Set the font family for all text elements */
+body {
+  font-family: Georgia, serif;
+}
+
+/* Set a default font size for all text elements */
+p, h1, h2, h3, h4, h5, h6 {
+  font-size: 16px;
+}
+
+/* Global heading styles */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  /* Add styles for headings */
+}
+
+.custom-h2 {
+  color: #9403fc;
+  font-size: 24px;
+}
+
+/* Global paragraph styles */
+p {
+  line-height: 1.5;
+  /* Add styles for paragraphs */
+}
+
+/* Global link styles */
+a {
+  color: #007bff; /* Bootstrap's primary color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Global list styles */
+ul, ol {
+  margin-left: 1.5em;
+  /* Add styles for lists */
+}
+
+/* Global container styles */
+.container {
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto; /* Center the container */
+  padding: 0 15px; /* Add padding to the sides */
+}
+
+/* Global row styles (for grid systems) */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px; /* Negative margin to offset container padding */
+}
+
+/* Global column styles (for grid systems) */
+.col {
+  flex: 1 0 0; /* Flexible columns */
+  padding: 0 15px; /* Add padding to columns */
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  /* Add styles for smaller screens */
+  body {
+    font-size: 14px; /* Decrease font size for smaller screens */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  /* Add styles for larger screens */
+}
+
+/* Utility classes */
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Add more utility classes as needed */

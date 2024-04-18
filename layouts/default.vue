@@ -17,7 +17,7 @@
     </v-navigation-drawer>
 
     <!-- App Bar -->
-    <v-app-bar title="Application bar"></v-app-bar>
+    <v-app-bar :title="pageTitle"></v-app-bar> <!-- Bind the title property to pageTitle -->
 
     <!-- Main Content -->
     <v-main class="main-content">
@@ -37,9 +37,23 @@ export default {
         { title_en: "Login", title_ar: "تسجيل الدخول", icon: "mdi-login", route: "/Login"}
       ],
       currentRoute: null, // Initialize currentRoute data property
-      currentLocale: 'en' // Initialize currentLocale to English
+      currentLocale: 'en', // Initialize currentLocale to English
+      //pageTitle: "Application bar" // Initialize pageTitle with default value
     };
   },
+
+   watch: {
+    '$route'(to, from) { // Watch for route changes
+      // Update pageTitle based on the current route
+      const item = this.menuItems.find(item => item.route === to.path);
+      if (item) {
+        this.pageTitle = this.getTranslatedTitle(item); // Set the translated title based on the current route
+      } else {
+        this.pageTitle = ""; // Set default title if route not found in menuItems
+      }
+    }
+  },
+
   methods: {
     navigateTo(route) {
       this.$router.push(route); // Use Vue Router to navigate to the specified route

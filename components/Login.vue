@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h2>Login</h2>
+    
+    <h2> {{nameS}}</h2>
+    <v-btn @click="updateName2"> Update name</v-btn>
+    <v-btn @click="navigateTo('/overview')"> move to overview </v-btn>
+    
     <form @submit.prevent="login">
       <label for="username">Username:</label>
       <input type="text" id="username" v-model="username" required />
@@ -9,6 +13,7 @@
       <button type="submit">Login</button>
     </form>
     <p v-if="error" class="error-message">{{ error }}</p>
+    <h2 class="custom-h2">Login</h2>
   </div>
 </template>
 
@@ -21,9 +26,18 @@ export default {
       error: ""
     };
   },
+  computed:{
+    nameS() {
+      return useMapStore().name;
+    }
+  },
   methods: {
+    updateName2() {
+      useMapStore().updateName();
+
+    },
     login() {
-      // Add your login logic here
+      //login logic here
       if (this.username === "admin" && this.password === "password") {
         // Successful login
         this.error = "";
