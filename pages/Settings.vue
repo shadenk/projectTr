@@ -2,6 +2,7 @@
     <div :class="{ 'dark-mode': darkMode }">
       <h1>{{ pageTitle }}</h1>
       <!-- Dark mode toggle button -->
+      <pre> {{ usePostsStore().posts }}</pre>
       <label for="darkModeToggle" class="switch">
         <input id="darkModeToggle" type="checkbox" v-model="darkMode" />
         <span class="slider round"></span>
@@ -37,7 +38,6 @@
     },
     methods: {
       saveSettings() {
-        // Logic to save settings
         console.log("Saving settings...");
         console.log("Username:", this.username);
         console.log("Email:", this.email);

@@ -2,17 +2,17 @@
   <div class="map-container">
     <!-- Map section -->
     <div id="map" class="map"></div>
-
+<pre> {{ usePostsStore().posts }}</pre>
     <!-- Information section -->
-    <div class="info-container">
+    <!-- <div class="info-container">
       <pre class="coordinates">Coordinates: {{ coordinates }}</pre>
       <div class="calculation-box">
-        <!-- <p>Click the map to draw a polygon.</p> -->
+         <p>Click the map to draw a polygon.</p> 
         <p v-if="!polygonDrawn">Click the map to draw a polygon.</p>
         <p v-else>Polygon drawn. Click again to edit or delete.</p>
         <div id="calculated-area"></div>
       </div>
-    </div>
+    </div>  -->
   </div>
 </template>
 
@@ -37,7 +37,8 @@ export default {
     };
   },
   mounted() {
-    this.createDrawMap();
+    usePostsStore().fetchPosts();
+    //this.createDrawMap();
     // Start line animation after the map style is loaded
     this.map.on("style.load", this.initializeLineAnimation);
   },
