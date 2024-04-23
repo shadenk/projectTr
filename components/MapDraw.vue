@@ -5,18 +5,20 @@
     <div id="map" class="map"></div>
     <!-- <pre> {{ usePostsStore().posts }}</pre> -->
 
-  
+    <div class="form-container">
+    <h2>Create a Post</h2>
     <v-form @submit.prevent="handleSubmit">
       <v-text-field v-model="formData.title" label="Title"></v-text-field>
       <v-text-field v-model="formData.body" label="Body"></v-text-field>
       <v-text-field v-model="formData.userId" label="User ID"></v-text-field>
-      <v-btn type="submit">Submit</v-btn>
+      <v-btn type="submit" class="submit-btn">Submit</v-btn>
     </v-form>
+    </div>
     <!-- Information section -->
      <div class="info-container">
       <pre class="coordinates">Coordinates: {{ coordinates }}</pre>
       <div class="calculation-box">
-         <p>Click the map to draw a polygon.</p> 
+         <!-- <p>Click the map to draw a polygon.</p>  -->
         <p v-if="!polygonDrawn">Click the map to draw a polygon.</p>
         <p v-else>Polygon drawn. Click again to edit or delete.</p>
         <div id="calculated-area"></div>
@@ -265,5 +267,31 @@ if (data.features.length > 0) {
 
 .calculation-box {
   margin-top: 20px;
+}
+
+.form-container {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: auto; /* Center the form horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: left; /* Center children vertically */
+}
+
+.form-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.form-container v-text-field {
+  margin-bottom: 15px;
+}
+
+.form-container .submit-btn {
+  width: 100%;
 }
 </style> 
