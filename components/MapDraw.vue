@@ -1,10 +1,19 @@
-<template>
+ 
+ <template>
   <div class="map-container">
     <!-- Map section -->
     <div id="map" class="map"></div>
-<pre> {{ usePostsStore().posts }}</pre>
+    <!-- <pre> {{ usePostsStore().posts }}</pre> -->
+
+  
+    <v-form @submit.prevent="handleSubmit">
+      <v-text-field v-model="formData.title" label="Title"></v-text-field>
+      <v-text-field v-model="formData.body" label="Body"></v-text-field>
+      <v-text-field v-model="formData.userId" label="User ID"></v-text-field>
+      <v-btn type="submit">Submit</v-btn>
+    </v-form>
     <!-- Information section -->
-    <!-- <div class="info-container">
+     <div class="info-container">
       <pre class="coordinates">Coordinates: {{ coordinates }}</pre>
       <div class="calculation-box">
          <p>Click the map to draw a polygon.</p> 
@@ -12,7 +21,7 @@
         <p v-else>Polygon drawn. Click again to edit or delete.</p>
         <div id="calculated-area"></div>
       </div>
-    </div>  -->
+    </div>  
   </div>
 </template>
 
@@ -34,15 +43,36 @@ export default {
       index: 0,
       timer: null,
       allowDraw: true, // Track if drawing is allowed
+      formData: {
+        title: "",
+        body: "",
+        userId: "",
+      },
     };
   },
-  mounted() {
-    usePostsStore().fetchPosts();
-    //this.createDrawMap();
-    // Start line animation after the map style is loaded
-    this.map.on("style.load", this.initializeLineAnimation);
-  },
+  async mounted() {
+  await usePostsStore().fetchPosts();
+  await usePostsStore().addPosts({
+    // "title": "this is title",
+    // "body": "this is body",
+    // "userId": "1"
+  });
+  //this.createDrawMap();
+  // Start line animation after the map style is loaded
+  await this.map.on("style.load", this.initializeLineAnimation);
+},
   methods: {
+
+    async handleSubmit() {
+      const postData = { ...this.formData }; // Create a copy of formData object
+      await usePostsStore().addPosts(postData);
+      // Optionally, you can reset the form after submission
+      this.formData.title = "";
+      this.formData.body = "";
+      this.formData.userId = "";
+    },
+  },
+
     createDrawMap() {
       this.map = new mapboxgl.Map({
         container: "map",
@@ -209,7 +239,6 @@ if (data.features.length > 0) {
         }
       }, 1000);
     },
-  },
 };
 </script>
 
@@ -237,4 +266,4 @@ if (data.features.length > 0) {
 .calculation-box {
   margin-top: 20px;
 }
-</style>
+</style> 

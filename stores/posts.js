@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
  
-export const useMapStore = defineStore({
+export const usePostsStore = defineStore({
   id: "posts-store",
   state: () => {
     return {
-      posts: [] 
+      posts: [],
+      loading: false, 
     };
   },
   actions: {
@@ -19,11 +20,38 @@ export const useMapStore = defineStore({
         }
         else{
          if(response.data){
-          this.posts = console.log(response.data.value);
+          this.posts = response.data.value;
          }
         }
       } catch(error){
         console.log(error.message);
+      } finally{
+        this.loading=false;
+      }
+    },
+    async addPosts(postData){
+      try{
+        const query = "https://jsonplaceholder.typicode.com/posts";
+        const response = await useFetch(query,  {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        });
+        
+        console.log(response);
+        if (!response.ok) {
+          const errorMessage = response.statusText;
+          throw new Error(`Failed to add post: ${errorMessage}`);
+        }
+    
+        const data = await response.json();
+        this.posts.push(data); //new post object
+    
+        console.log("Post added successfully:", data);
+      } catch (error) {
+        console.error("Error adding post:", error.message);
       } finally{
         this.loading=false;
       }
@@ -33,5 +61,5 @@ export const useMapStore = defineStore({
 });
  
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useMapStore, import.meta.hot));
-}
+  import.meta.hot.accept(acceptHMRUpdate(usePostsStore, import.meta.hot));
+} 
