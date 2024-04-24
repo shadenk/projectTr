@@ -55,7 +55,43 @@ export const usePostsStore = defineStore({
       } finally{
         this.loading=false;
       }
-    }
+    },
+    async updatePost(postData) {
+      try {
+        const query = `https://jsonplaceholder.typicode.com/posts/${postData.id}`;
+        const response = await useFetch(query, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: postData.title,
+            body: postData.body,
+            userId: postData.userId,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorMessage = response.statusText;
+          throw new Error(`Failed to update post: ${errorMessage}`);
+        }
+
+        const updatedPost = await response.json();
+        // Update the post in the store's state
+        const index = this.posts.findIndex((post) => post.id === postData.id);
+        if (index !== -1) {
+          this.posts.splice(index, 1, updatedPost);
+        } else {
+          throw new Error("Post not found in store");
+        }
+
+        console.log("Post updated successfully:", updatedPost);
+      } catch (error) {
+        console.error("Error updating post:", error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
   },
   persist: true
 });
