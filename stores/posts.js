@@ -10,6 +10,7 @@ export const usePostsStore = defineStore({
   },
   actions: {
     async fetchPosts(){
+      this.loading = false;
       try{
         const query = "https://jsonplaceholder.typicode.com/posts";
         const response = await useFetch(query);
