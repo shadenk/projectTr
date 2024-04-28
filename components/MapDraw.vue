@@ -150,50 +150,6 @@ export default {
   },
   updateArea(e) {
     const data = this.draw.getAll();
-    /*
-  // Check if a polygon is drawn or deleted
-  if (e.type === "draw.create") {
-    // Save the ID of the newly drawn polygon
-    this.drawId = data.features[0].id;
-    this.polygonDrawn = true;
-    this.coordinates = data.features[0].geometry.coordinates[0];
-
-    // Add the drawn polygon to the map
-    this.addPolygonToMap(data.features[0]);
-
-    // Make the polygon editable
-    this.draw.changeMode("direct_select", { featureId: this.drawId });
-
-    // Start line animation
-    this.initializeLineAnimation(this.coordinates);
-  } else if (e.type === "draw.delete") {
-    this.polygonDrawn = false;
-    this.coordinates = null;
-
-    // Remove the drawn polygon from the map
-    this.map.removeLayer("drawn-polygon");
-    this.map.removeSource("drawn-polygon");
-
-    // Reset draw control mode
-    this.draw.changeMode("draw_polygon");
-    this.drawId = null;
-  }
-},
-
-
-if (data.features.length > 0) {
-        const area = turf.area(data);
-        this.area = Math.round(area * 100) / 100; // Round to 2 decimal places
-        this.polygonDrawn = true;
-        this.coordinates = data.features[0].geometry.coordinates[0];
-      } else {
-        this.area = null;
-        this.polygonDrawn = false;
-        this.coordinates = null;
-      }
-    },
-    */
-
     //Check if a polygon is drawn or deleted
     if (data.features.length > 0) {
       this.polygonDrawn = true;
