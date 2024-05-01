@@ -173,8 +173,8 @@ export default {
         this.alert.type = "error";
       } finally {
         setTimeout(() => {
-            this.alert.display = false;
-        },3000);
+          this.alert.display = false;
+        }, 3000);
         this.loading = false;
       }
     },
@@ -194,30 +194,30 @@ export default {
     async deleteItemConfirm(index) {
       const correctIndex = parseInt(this.editedIndex) + 1;
       this.loadingDelete = true;
-      try{
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts/" + correctIndex,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/posts/" + correctIndex,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        this.alert.display = true;
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      );
-      this.alert.display = true;
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
         this.alert.message = "Delete successful";
         this.alert.type = "success";
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching data:", error);
         this.alert.message = "Error deleting";
         this.alert.type = "error";
       } finally {
         setTimeout(() => {
-            this.alert.display = false;
-        },3000);
+          this.alert.display = false;
+        }, 3000);
         this.loading = false;
         this.closeDelete();
         this.loadingDelete = false;
@@ -242,7 +242,6 @@ export default {
 
     async save() {
       const correctIndex = parseInt(this.editedIndex) + 1;
-
       this.loadingAddEdit = true;
       try {
         if (this.editedIndex > -1) {
@@ -256,9 +255,12 @@ export default {
               body: JSON.stringify(this.editedItem),
             }
           );
+          this.alert.display = true;
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
+          this.alert.message = "update successful";
+          this.alert.type = "success";
           const data = await response.json();
         } else {
           const response = await fetch(
@@ -280,6 +282,15 @@ export default {
         this.close();
       } catch (error) {
         console.error("Error saving data:", error);
+        this.alert.message = "Error updating";
+        this.alert.type = "error";
+      } finally {
+        setTimeout(() => {
+          this.alert.display = false;
+        }, 3000);
+        this.loading = false;
+        this.closeDelete();
+        this.loadingDelete = false;
       }
     },
   },
