@@ -1,9 +1,12 @@
 <template>
   <div>
+    <v-dividor class="mt-20 mb-20"></v-dividor>
     <v-alert
-      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!"
-      title="Alert title"
-      type="success"
+      class="ma-5"
+      :type="alert.type"
+      icon="$success"
+      v-if="alert.display"
+      :text="alert.message"
     ></v-alert>
     <v-data-table :loading="loading" :headers="headers" :items="posts">
       <template v-slot:top>
@@ -125,6 +128,11 @@ export default {
       title: "",
       body: "",
     },
+    alert: {
+      type: "",
+      message: "",
+      display: false,
+    },
   }),
 
   computed: {
@@ -160,7 +168,13 @@ export default {
         this.posts = data;
       } catch (error) {
         console.error("Error fetching data:", error);
+        this.alert.display = true;
+        this.alert.message = "Data has not been fetched";
+        this.alert.type = "error";
       } finally {
+        setTimeout(() => {
+            this.alert.display = false;
+        },3000);
         this.loading = false;
       }
     },
@@ -180,6 +194,7 @@ export default {
     async deleteItemConfirm(index) {
       const correctIndex = parseInt(this.editedIndex) + 1;
       this.loadingDelete = true;
+      try{
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/posts/" + correctIndex,
         {
@@ -189,11 +204,24 @@ export default {
           },
         }
       );
+      this.alert.display = true;
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      this.closeDelete();
-      this.loadingDelete = "false";
+        this.alert.message = "Delete successful";
+        this.alert.type = "success";
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        this.alert.message = "Error deleting";
+        this.alert.type = "error";
+      } finally {
+        setTimeout(() => {
+            this.alert.display = false;
+        },3000);
+        this.loading = false;
+        this.closeDelete();
+        this.loadingDelete = false;
+      }
     },
 
     async close() {
